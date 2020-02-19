@@ -7,9 +7,6 @@ import java.util.ArrayList;
 class Parser;
 
 parser code {:
-  private ArrayList<AstCommand> commandes = new ArrayList<>();
-  private ArrayList<AstDeclaration> declarations= new ArrayList<>();
-
   public Parser (java.io.Reader input) {
     super(new Lexer(input));
   }
@@ -17,8 +14,8 @@ parser code {:
 
 /* Non terminals */
 non terminal AstProgramme prog;
-non terminal cmds;
-non terminal AstCommand cmd;
+non terminal ArrayList<AstCommand> cmds;
+non terminal AstStatement cmd;
 non terminal AstDeclaration dec;
 non terminal AstType type;
 non terminal ArrayList<AstType> types;
@@ -31,65 +28,77 @@ start with prog;
 
 
 /* grammar */
-prog  ::=   LBAR cmds RBAR 
-  {: RESULT = new AstProgramme(declarations,commandes) :} 
+prog  ::=   LBAR cmds:c RBAR 
+  {: RESULT = new AstProgramme(c) :} ;
 
 cmds  ::= cmd:c expr   
-          {: commandes.add(c); :} 
+          {: (new ArrayList<AstCommand>()).add(0,c); :} 
           | 
-          dec:d SEMCOL cmds
-          {: declarations.add(d) :}
+          dec:d SEMCOL cmds:cs
+          {: cs.add(0,d); :}
           |
+          stat: SEMCOL cmds:cs
+          {: cs.add(0,d); :};
 
-type:
-BOOL  { $$ = new AstType(TPrim.BOOL); }
-| INT { $$ = new AstType(TPrim.INT); }
-| LPAR types ARROW type RPAR  { $$ = new AstType((ArrayList<Ast>)$2, $); }
+stat  ::= ECHO expr:e
+          {: new AstEcho(e); :};
 
-types:
-type { ArrayList<Ast> r = new ArrayList<Ast>(); t.add((Ast)$1); $$ = t  ; }
-| type STAR types   { ((ArrayList<Ast>)$2).add((Ast)$1); $$ = $3; }
+dec   ::= CONST IDENT:id type:t expr:e
+          {: new AstConst(id,t,e); :}
+          |
+          FUN IDENT:id type:t LBAR args:as RBAR expr:e
+          {: new AstFun(id,t,as,e); :}
+          |
+          FUN REC IDENT:id type:t LBAR args:as RBAR expr:expr
+          {: new AstFunRec(id,t,as,expr); :};
 
-expr:
-  NUM                      { $$ = new AstNum($1); }
-| TRUE 			{ $$ = new AstBool(cBool.TRUE); }
-| FALSE			{ $$ = new AstBool(cBool.FALSE); }
-| IDENT                    { $$ = new AstId($1); }
-| LPAR PLUS exprs RPAR   { $$ = new AstPrim(Op.ADD,(ArrayList<Ast>)$3); }
-| LPAR MINUS exprs RPAR  { $$ = new AstPrim(Op.SUB,(ArrayList<Ast>)$3); }
-| LPAR TIMES exprs RPAR  { $$ = new AstPrim(Op.MUL,(ArrayList<Ast>)$3); }
-| LPAR DIV exprs RPAR    { $$ = new AstPrim(Op.DIV,(ArrayList<Ast>)$3); }
-| LPAR LT exprs RPAR    { $$ = new AstPrim(Op.LT,(ArrayList<Ast>)$3); }
-| LPAR EQ exprs RPAR    { $$ = new AstPrim(Op.EQ,(ArrayList<Ast>)$3); }
-| LPAR OR exprs RPAR    { $$ = new AstPrim(Op.OR,(ArrayList<Ast>)$3); }
-| LPAR AND exprs RPAR    { $$ = new AstPrim(Op.AND,(ArrayList<Ast>)$3); }
-| LPAR NOT exprs RPAR    { $$ = new AstPrim(Op.NOT,(ArrayList<Ast>)$3); }
-| LPAR IF expr expr expr RPAR  { $$ = new AstIf((Ast)$3,(Ast)$4,(Ast)$5 ); }
-;
-exprs:
-expr                   { ArrayList<Ast> r = new ArrayList<Ast>(); r.add((Ast)$1); $$ = r; }
-| expr exprs           { ((ArrayList<Ast>)$1).add((Ast)$2); $$ = $2; }
-;
-%%
-  public Ast prog;
+type  ::= BOOL  
+          {: new AstBoolType(); :}
+          |
+          INT
+          {: new AstIntType(); :}
+          |
+          LPAR types:targs RPAR ARROW type:tres 
+          {: new AstFuncType(targs,tres); :};
 
-  private Yylex lexer;
+types ::= type:t
+          {: (new ArrayList<AstType>()).add(0,t); :}
+          |
+          type:t STAR types:ts
+          {: ts.add(0,t); :};
 
-  private int yylex () {
-	  int yyl_return = -1;
-	  try {
-		yylval = new ParserVal(0);
-		yyl_return = lexer.yylex();
-	  }catch (IOException e) {
-	    System.err.println("IO error :"+e);
-	  }
-	  return yyl_return;
-  }
+args  ::= arg:a
+          {: (new ArrayList<AstArgument>()).add(0,a); :}
+          |
+          arg:a COMMA args:as
+          {: as.add(0,a); :};
 
-  public void yyerror (String error) {
-	System.err.println ("Error: " + error);
-  }
+expr  ::= NUM:i
+          {: new AstNum(i); :}
+          |
+          TRUE
+          {: new AstBool(true); :}
+          |
+          FALSE
+          {: new AstBool(false); :}
+          |
+          IDENT:v
+          {: new AstVar(v); :}
+          |
+          LPAR IF expr:cond expr:cons expr:alt RPAR
+          {: new AstIf(cond,cons,alt); :}
+          |
+          LPAR op:o exprs:es RPAR
+          {: new AstOp(o,es); :}
+          |
+          LBAR args:as RBAR expr:e
+          {: new AstLambda(as,e); :}
+          |
+          LPAR expr:e exprs:es RPAR
+          {: new AstApplication(e,es); :};
 
-  public Parser(Reader r) {
-	lexer = new Yylex(r, this);
-  }
+exprs ::= expr:e
+          {: (new ArrayList<AstExpression>()).add(0,e); :}
+          |
+          expr:e exprs:es
+          {: es.add(0,e); :};
