@@ -1,4 +1,4 @@
-public enum TPrim {
+public enum Tprim {
     BOOL("bool"),// calls constructor with value "add"
     INT("int");// calls constructor with value "sub"
 
@@ -8,7 +8,7 @@ public enum TPrim {
 
     private String str;
 
-    TPrim(String str) {
+    Tprim(String str) {
         this.str = str;
     }
 

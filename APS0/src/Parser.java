@@ -183,65 +183,74 @@ public final static short TWOPOINTS=279;
 public final static short COMMA=280;
 public final static short STAR=281;
 public final static short ARROW=282;
+public final static short CONST=283;
+public final static short FUN=284;
+public final static short REC=285;
+public final static short ECHO=286;
+public final static short types=287;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-    1,    1,    1,    1,    1,    2,    2,
+    0,    0,    3,    3,    1,    1,    1,    1,    1,    1,
+    1,    1,    1,    1,    1,    1,    1,    1,    2,    2,
 };
 final static short yylen[] = {                            2,
-    1,    1,    1,    1,    1,    4,    4,    4,    4,    4,
-    4,    4,    4,    4,    6,    1,    2,
+    1,    1,    1,    1,    1,    1,    1,    1,    4,    4,
+    4,    4,    4,    4,    4,    4,    4,    6,    1,    2,
 };
 final static short yydefred[] = {                         0,
-    2,    3,    4,    5,    0,    0,    1,    0,    0,    0,
+    5,    6,    7,    8,    3,    4,    0,    0,    2,    1,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,   17,    6,
-    7,    8,    9,   10,   11,   12,   13,   14,    0,    0,
-   15,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,   20,    9,   10,   11,   12,   13,   14,   15,   16,
+   17,    0,    0,   18,
 };
-final static short yydgoto[] = {                          6,
-   18,   19,
+final static short yydgoto[] = {                          8,
+   21,   22,   10,
 };
-final static short yysindex[] = {                      -255,
-    0,    0,    0,    0, -254,    0,    0, -255, -255, -255,
- -255, -255, -255, -255, -255, -255, -255, -255, -275, -273,
- -268, -244, -243, -242, -241, -240, -239, -255,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0, -255, -238,
-    0,
+final static short yysindex[] = {                      -256,
+    0,    0,    0,    0,    0,    0, -229,    0,    0,    0,
+ -252, -252, -252, -252, -252, -252, -252, -252, -252, -252,
+ -252, -275, -265, -264, -263, -262, -261, -260, -255, -251,
+ -252,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0, -252, -250,    0,
 };
 final static short yyrindex[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0, -237,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+ -249,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,
+    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    1,   12,
+    1,   32,    0,
 };
-final static int YYTABLESIZE=40;
+final static int YYTABLESIZE=53;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                         30,
-    7,   31,    1,    2,    3,    4,   32,    8,    9,   10,
-   11,   12,   13,   14,   15,   16,   17,   28,    5,    0,
-   20,   21,   22,   23,   24,   25,   26,   27,   39,   29,
-   33,   34,   35,   36,   37,   38,   41,   16,    0,   40,
+yytable = new short[]{                         33,
+    9,    1,    2,    3,    4,    1,    2,    3,    4,   34,
+   35,   36,   37,   38,   39,    5,    6,    7,    0,   40,
+   31,    7,    0,   41,   44,   19,    0,    0,    0,    0,
+    0,   42,   11,   12,   13,   14,   15,   16,   17,   18,
+   19,   20,   43,   23,   24,   25,   26,   27,   28,   29,
+   30,    0,   32,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                        275,
-    0,  275,  258,  259,  260,  261,  275,  262,  263,  264,
-  265,  266,  267,  268,  269,  270,  271,   17,  274,   -1,
-    9,   10,   11,   12,   13,   14,   15,   16,   28,   18,
-  275,  275,  275,  275,  275,  275,  275,  275,   -1,   39,
+    0,  258,  259,  260,  261,  258,  259,  260,  261,  275,
+  275,  275,  275,  275,  275,  272,  273,  274,   -1,  275,
+   20,  274,   -1,  275,  275,  275,   -1,   -1,   -1,   -1,
+   -1,   31,  262,  263,  264,  265,  266,  267,  268,  269,
+  270,  271,   42,   12,   13,   14,   15,   16,   17,   18,
+   19,   -1,   21,
 };
 }
-final static short YYFINAL=6;
-final static short YYMAXTOKEN=282;
+final static short YYFINAL=8;
+final static short YYMAXTOKEN=287;
 final static String yyname[] = {
 "end-of-file",null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
@@ -261,11 +270,14 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,"NL","NUM","TRUE","FALSE","IDENT","PLUS","MINUS","TIMES","DIV",
 "LT","EQ","OR","AND","NOT","IF","BOOL","INT","LPAR","RPAR","LBAR","RBAR",
-"SEMCOL","TWOPOINTS","COMMA","STAR","ARROW",
+"SEMCOL","TWOPOINTS","COMMA","STAR","ARROW","CONST","FUN","REC","ECHO","types",
 };
 final static String yyrule[] = {
 "$accept : line",
+"line : type",
 "line : expr",
+"type : BOOL",
+"type : INT",
 "expr : NUM",
 "expr : TRUE",
 "expr : FALSE",
@@ -284,7 +296,7 @@ final static String yyrule[] = {
 "exprs : expr exprs",
 };
 
-//#line 57 "parser.y"
+//#line 69 "parser.y"
   public Ast prog;
 
   private Yylex lexer;
@@ -307,7 +319,7 @@ final static String yyrule[] = {
   public Parser(Reader r) {
 	lexer = new Yylex(r, this);
   }
-//#line 239 "Parser.java"
+//#line 251 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -462,76 +474,86 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 29 "parser.y"
-{ prog=(Ast)val_peek(0).obj; yyval.obj=val_peek(0).obj; }
+//#line 36 "parser.y"
+{prog=(Ast)val_peek(0).obj; yyval.obj=val_peek(0).obj; }
 break;
 case 2:
-//#line 35 "parser.y"
-{ yyval.obj = new AstNum(val_peek(0).ival); }
+//#line 37 "parser.y"
+{ prog=(Ast)val_peek(0).obj; yyval.obj=val_peek(0).obj; }
 break;
 case 3:
-//#line 36 "parser.y"
-{ yyval.obj = new AstBool(cBool.TRUE); }
+//#line 42 "parser.y"
+{ yyval.obj = new AstType(Tprim.BOOL); }
 break;
 case 4:
-//#line 37 "parser.y"
-{ yyval.obj = new AstBool(cBool.FALSE); }
+//#line 43 "parser.y"
+{ yyval.obj = new AstType(Tprim.INT); }
 break;
 case 5:
-//#line 38 "parser.y"
-{ yyval.obj = new AstId(val_peek(0).sval); }
+//#line 49 "parser.y"
+{ yyval.obj = new AstNum(val_peek(0).ival); }
 break;
 case 6:
-//#line 39 "parser.y"
-{ yyval.obj = new AstPrim(Op.ADD,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 50 "parser.y"
+{ yyval.obj = new AstBool(cBool.TRUE); }
 break;
 case 7:
-//#line 40 "parser.y"
-{ yyval.obj = new AstPrim(Op.SUB,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 51 "parser.y"
+{ yyval.obj = new AstBool(cBool.FALSE); }
 break;
 case 8:
-//#line 41 "parser.y"
-{ yyval.obj = new AstPrim(Op.MUL,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 52 "parser.y"
+{ yyval.obj = new AstId(val_peek(0).sval); }
 break;
 case 9:
-//#line 42 "parser.y"
-{ yyval.obj = new AstPrim(Op.DIV,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 53 "parser.y"
+{ yyval.obj = new AstPrim(Op.ADD,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 10:
-//#line 43 "parser.y"
-{ yyval.obj = new AstPrim(Op.LT,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 54 "parser.y"
+{ yyval.obj = new AstPrim(Op.SUB,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 11:
-//#line 44 "parser.y"
-{ yyval.obj = new AstPrim(Op.EQ,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 55 "parser.y"
+{ yyval.obj = new AstPrim(Op.MUL,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 12:
-//#line 45 "parser.y"
-{ yyval.obj = new AstPrim(Op.OR,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 56 "parser.y"
+{ yyval.obj = new AstPrim(Op.DIV,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 13:
-//#line 46 "parser.y"
-{ yyval.obj = new AstPrim(Op.AND,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 57 "parser.y"
+{ yyval.obj = new AstPrim(Op.LT,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 14:
-//#line 47 "parser.y"
-{ yyval.obj = new AstPrim(Op.NOT,(ArrayList<Ast>)val_peek(1).obj); }
+//#line 58 "parser.y"
+{ yyval.obj = new AstPrim(Op.EQ,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 15:
-//#line 48 "parser.y"
-{ yyval.obj = new AstIf((Ast)val_peek(3).obj,(Ast)val_peek(2).obj,(Ast)val_peek(1).obj ); }
+//#line 59 "parser.y"
+{ yyval.obj = new AstPrim(Op.OR,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 16:
-//#line 51 "parser.y"
-{ ArrayList<Ast> r = new ArrayList<Ast>();
-				r.add((Ast)val_peek(0).obj);
-yyval.obj = r; }
+//#line 60 "parser.y"
+{ yyval.obj = new AstPrim(Op.AND,(ArrayList<Ast>)val_peek(1).obj); }
 break;
 case 17:
-//#line 54 "parser.y"
-{ ((ArrayList<Ast>)val_peek(0).obj).add((Ast)val_peek(1).obj); yyval.obj = val_peek(0).obj; }
+//#line 61 "parser.y"
+{ yyval.obj = new AstPrim(Op.NOT,(ArrayList<Ast>)val_peek(1).obj); }
 break;
-//#line 458 "Parser.java"
+case 18:
+//#line 62 "parser.y"
+{ yyval.obj = new AstIf((Ast)val_peek(3).obj,(Ast)val_peek(2).obj,(Ast)val_peek(1).obj ); }
+break;
+case 19:
+//#line 65 "parser.y"
+{ ArrayList<Ast> r = new ArrayList<Ast>(); r.add((Ast)val_peek(0).obj); yyval.obj = r; }
+break;
+case 20:
+//#line 66 "parser.y"
+{ ((ArrayList<Ast>)val_peek(1).obj).add((Ast)val_peek(0).obj); yyval.obj = val_peek(0).obj; }
+break;
+//#line 480 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -1,0 +1,21 @@
+| LPAR types ARROW type RPAR { $$ = new AstType((ArrayList<Ast>)$2, $); }
+
+types:
+type { ArrayList<Ast> r = new ArrayList<Ast>(); t.add((Ast)$1); $$ = t  ; }
+| type STAR types    { ((ArrayList<Ast>)$1).add((Ast)$3); $$ = $3; }
+
+
+
+
+
+		if (op.getStr()== "not"){
+			r +=opands.get(0).toPrologString();
+			r += "])";
+			return r;
+		}
+
+		for(int i=0; i < opands.size()-1; i++)
+			r += opands.get(i).toPrologString()+",";
+			r += opands.get(opands.size()-1).toPrologString();
+			r += "])";
+			return r;

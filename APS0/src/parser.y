@@ -10,7 +10,8 @@
 %token <sval> IDENT          /* an identifier */
 %token PLUS MINUS TIMES DIV LT EQ OR AND NOT /* operators */
 %token IF 		/* if */
-%token BOOL INT 	     /* tprim */
+%token BOOL			/* tprim */
+%token INT 	    		 /* tprim */
 %token LPAR RPAR             /* parethesis */
 %token LBAR RBAR             /* brackets */
 %token SEMCOL		     /* semicolon */
@@ -21,6 +22,7 @@
 %token CONST FUN REC	    /* for functions */
 %token ECHO 		    /* to print */
 
+
 %type <obj> line
 %type <obj> expr
 %type <obj> exprs
@@ -30,17 +32,34 @@
 %start line
 %%
 
-line:  expr   { prog=(Ast)$1; $$=$1; }
-;
+line: LBRA cmds  RBRA { prog=(Ast)$2; $$=$2; }
+
+cmds: stat
+| dec SEMCOL cmds
+| stat SEMCOL cmds
 
 type:
-BOOL  { $$ = new AstType(TPrim.BOOL); }
-| INT { $$ = new AstType(TPrim.INT); }
-| LPAR types ARROW type RPAR  { $$ = new AstType((ArrayList<Ast>)$2, $); }
+BOOL  { $$ = new AstType(Tprim.BOOL); }
+| INT { $$ = new AstType(Tprim.INT); }
+| LPAR types ARROW type RPAR { $$ = new AstType((ArrayList<Ast>)$2, $); }
 
 types:
 type { ArrayList<Ast> r = new ArrayList<Ast>(); t.add((Ast)$1); $$ = t  ; }
-| type STAR types   { ((ArrayList<Ast>)$2).add((Ast)$1); $$ = $3; }
+| type STAR types    { ((ArrayList<Ast>)$1).add((Ast)$3); $$ = $3; }
+
+arg:
+| IDENT TWOPOINTS type
+
+args:
+arg
+| arg COMMA args
+
+dec: CONST IDENT type expr
+| FUN IDENT type LBRA args RBRA expr
+| FUN REC IDENT type LBRA args RBRA expr
+
+stat: ECHO expr
+
 
 expr:
   NUM                      { $$ = new AstNum($1); }
