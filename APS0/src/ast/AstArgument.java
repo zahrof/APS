@@ -18,5 +18,6 @@ public class AstArgument extends Ast {
 
     public AstType getType(){
         return type;
+        
     }
 }

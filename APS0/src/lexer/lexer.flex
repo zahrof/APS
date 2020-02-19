@@ -58,7 +58,7 @@ eol  = \n | \r | \r\n
 ";"  { return symbol(sym.SEMCOL); }
 
 /* two-points */
-":"  { return symbol(sym.DIV); }
+":"  { return symbol(sym.TWOPOINTS); }
 
 /* comma */
 ","  { return symbol(sym.COMMA); }

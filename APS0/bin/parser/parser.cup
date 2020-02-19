@@ -16,7 +16,7 @@ parser code {:
 /* Non terminals */
 non terminal AstProgramme prog;
 non terminal ArrayList<AstCommand> cmds;
-non terminal AstStatement cmd;
+non terminal AstStatement stat;
 non terminal AstDeclaration dec;
 non terminal AstType type;
 non terminal ArrayList<AstType> types;
@@ -25,6 +25,11 @@ non terminal ArrayList<AstArgument> args;
 non terminal AstExpression expr;
 non terminal ArrayList<AstExpression> exprs;
 
+terminal LBAR, RBAR, LPAR, RPAR, SEMCOL, COMMA, STAR, ARROW, TWOPOINTS;
+terminal TRUE, FALSE, BOOL, INT, IF, CONST, FUN, REC, ECHO;
+terminal String OPRIM;
+terminal Integer NUM;
+terminal String IDENT;
 start with prog;
 
 
@@ -32,15 +37,16 @@ start with prog;
 prog  ::=   LBAR cmds:c RBAR 
   {: RESULT = new AstProgramme(c) :} ;
 
-cmds  ::= cmd:c expr   
-          {: RESULT = (new ArrayList<AstCommand>()).add(0,c); :} 
+cmds  ::= stat:s expr   
+          {: RESULT = (new ArrayList<AstCommand>()).add(0,s); :} 
           | 
           dec:d SEMCOL cmds:cs
           {: cs.add(0,d);
-             RESULT = cs:}
+             RESULT = cs; :}
           |
-          stat: SEMCOL cmds:cs
-          {: RESULT = cs.add(0,d); :};
+          stat:s SEMCOL cmds:cs
+          {: cs.add(0,s);
+             RESULT = cs; :};
 
 stat  ::= ECHO expr:e
           {: RESULT = new AstEcho("ECHO",e); :};
@@ -71,10 +77,10 @@ types ::= type:t
              RESULT = ts :};
 
 arg   ::= IDENT:id TWOPOINTS type:t
-          {: RESULT = new AstArgument(id,t) :}
+          {: RESULT = new AstArgument(id,t) :};
 
 args  ::= arg:a
-          {: (new ArrayList<AstArgument>()).add(0,a); :}
+          {: RESULT = (new ArrayList<AstArgument>()).add(0,a); :}
           |
           arg:a COMMA args:as
           {: as.add(0,a); 
@@ -105,7 +111,7 @@ expr  ::= NUM:i
           {: RESULT = new AstApplication(e,es); :};
 
 exprs ::= expr:e
-          {: (new ArrayList<AstExpression>()).add(0,e); :}
+          {: RESULT =(new ArrayList<AstExpression>()).add(0,e); :}
           |
           expr:e exprs:es
           {: es.add(0,e);
