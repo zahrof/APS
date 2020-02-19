@@ -32,15 +32,15 @@ eol  = \n | \r | \r\n
 "false" { return  symbol(sym.FALSE); }
 
 /* operators */
-"add"  { return symbol(sym.PLUS); }
-"sub"  { return symbol(sym.MINUS); }
-"mul"  { return symbol(sym.TIMES); }
-"div"  { return symbol(sym.DIV); }
-"and"  { return symbol(sym.AND); }
-"or"  { return symbol(sym.OR); }
-"eq"  { return symbol(sym.EQ); }
-"lt"  { return symbol(sym.LT); }
-"not" { return symbol(sym.NOT); }
+"add"  { return symbol(sym.OPRIM,"add"); }
+"sub"  { return symbol(sym.OPRIM, "sub"); }
+"mul"  { return symbol(sym.OPRIM, "mul"); }
+"div"  { return symbol(sym.OPRIM, "div"); }
+"and"  { return symbol(sym.OPRIM, "and"); }
+"or"  { return symbol(sym.OPRIM, "or"); }
+"eq"  { return symbol(sym.OPRIM, "eq"); }
+"lt"  { return symbol(sym.OPRIM, "lt"); }
+"not" { return symbol(sym.OPRIM, "not"); }
 
 /* types */
 "bool" { return symbol(sym.BOOL); }
