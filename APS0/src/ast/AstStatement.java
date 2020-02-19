@@ -3,7 +3,7 @@ package ast;
 /**
  * AstStatement
  */
-public abstract class AstStatement extends Ast {
+public abstract class AstStatement extends AstCommand {
 
     private String name;
 

@@ -9,11 +9,11 @@ public class AstProgramme extends Ast{
 
     private List<AstCommand> commands;
 
-    public AstProgramme (ArrayList<AstCommand> cmds){
+    public AstProgramme (List<AstCommand> cmds){
         commands = cmds;
     }
 
-    public ArrayList<AstCommand> getCommands(){
+    public List<AstCommand> getCommands(){
         return commands;
     }
 }
