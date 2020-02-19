@@ -7,51 +7,39 @@ import java.util.ArrayList;
 class Parser;
 
 parser code {:
+  private ArrayList<AstCommand> commandes = new ArrayList<>();
+  private ArrayList<AstDeclaration> declarations= new ArrayList<>();
+
   public Parser (java.io.Reader input) {
     super(new Lexer(input));
   }
 :};
 
+/* Non terminals */
 non terminal AstProgramme prog;
-non terminal ArrayList<AstCommand> cmds;
+non terminal cmds;
 non terminal AstCommand cmd;
 non terminal AstDeclaration dec;
 non terminal AstType type;
 non terminal ArrayList<AstType> types;
-non terminal ArrayList<AstArgument> args;
 non terminal AstArgument arg;
+non terminal ArrayList<AstArgument> args;
 non terminal AstExpression expr;
 non terminal ArrayList<AstExpression> exprs;
 
-%token NL                    /* newline  */
-%token <ival> NUM            /* a number */
-%token TRUE           	     /* the true boolean */
-%token FALSE           	     /* the false boolean */
-%token <sval> IDENT          /* an identifier */
-%token PLUS MINUS TIMES DIV LT EQ OR AND NOT /* operators */
-%token IF 		/* if */
-%token BOOL INT 	     /* tprim */
-%token LPAR RPAR             /* parethesis */
-%token LBAR RBAR             /* brackets */
-%token SEMCOL		     /* semicolon */
-%token TWOPOINTS	     /* two points : */
-%token COMMA 		     /* comma  */
-%token STAR 		     /* STAR * */
-%token ARROW                 /* ARROW -> */
-%token CONST FUN REC	    /* for functions */
-%token ECHO 		    /* to print */
+start with prog;
 
-%type <obj> line
-%type <obj> expr
-%type <obj> exprs
-%type <obj> type
-%type <obj> types
 
-%start line
-%%
+/* grammar */
+prog  ::=   LBAR cmds RBAR 
+  {: RESULT = new AstProgramme(declarations,commandes) :} 
 
-line:  expr   { prog=(Ast)$1; $$=$1; }
-;
+cmds  ::= cmd:c expr   
+          {: commandes.add(c); :} 
+          | 
+          dec:d SEMCOL cmds
+          {: declarations.add(d) :}
+          |
 
 type:
 BOOL  { $$ = new AstType(TPrim.BOOL); }
