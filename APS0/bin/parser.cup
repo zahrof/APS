@@ -1,7 +1,27 @@
-%{
-  import java.io.*;
-  import java.util.ArrayList;
-%}
+package parser;
+
+import java.io.*;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+
+class Parser;
+
+parser code {:
+  public Parser (java.io.Reader input) {
+    super(new Lexer(input));
+  }
+:};
+
+non terminal AstProgramme prog;
+non terminal ArrayList<AstCommand> cmds;
+non terminal AstCommand cmd;
+non terminal AstDeclaration dec;
+non terminal AstType type;
+non terminal ArrayList<AstType> types;
+non terminal ArrayList<AstArgument> args;
+non terminal AstArgument arg;
+non terminal AstExpression expr;
+non terminal ArrayList<AstExpression> exprs;
 
 %token NL                    /* newline  */
 %token <ival> NUM            /* a number */
