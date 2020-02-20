@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * AstOp
  */
-public class AstOp extends AstExpression{
+public class AstOp extends AstExpression {
     private String operation;
     private List<AstExpression> expressions;
 

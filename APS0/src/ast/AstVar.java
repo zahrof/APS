@@ -14,4 +14,8 @@ public class AstVar extends AstExpression {
     public String getName(){
         return name;
     }
+    
+    public String toProlog() {
+    	return "var("+name+")";
+    }
 }

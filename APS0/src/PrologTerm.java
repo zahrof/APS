@@ -1,12 +1,14 @@
 
 import java.io.*;
+import parser.Parser;
+import ast.*;
 
 class PrologTerm {
 	public static void main(String args[]) throws IOException {
-	Parser yyparser;
-	Ast prog;
+		Parser yyparser;
+		Ast prog;
 
-	yyparser = new Parser(new InputStreamReader(new FileInputStream(args[0])));
+		yyparser = new Parser(new InputStreamReader(new FileInputStream(args[0])));
 	yyparser.yyparse();
 	prog = (Ast) yyparser.yyval.obj;
 

@@ -4,6 +4,7 @@ import java.io.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import lexer.Lexer;
+import ast.*; 
 
 class Parser;
 
@@ -35,10 +36,12 @@ start with prog;
 
 /* grammar */
 prog  ::=   LBAR cmds:c RBAR 
-  {: RESULT = new AstProgramme(c) :} ;
+  {: RESULT = new AstProgramme(c); :} ;
 
 cmds  ::= stat:s expr   
-          {: RESULT = (new ArrayList<AstCommand>()).add(0,s); :} 
+          {: ArrayList<AstCommand> l = new ArrayList<AstCommand>(); 
+             l.add(0,s);
+             RESULT = l; :} 
           | 
           dec:d SEMCOL cmds:cs
           {: cs.add(0,d);
@@ -70,21 +73,25 @@ type  ::= BOOL
           {: RESULT = new AstFuncType(targs,tres); :};
 
 types ::= type:t
-          {: RESULT = (new ArrayList<AstType>()).add(0,t); :}
+          {: ArrayList<AstType> l = new ArrayList<AstType>(); 
+             l.add(0,t);
+             RESULT = l; :}
           |
           type:t STAR types:ts
           {: ts.add(0,t);
-             RESULT = ts :};
+             RESULT = ts; :};
 
 arg   ::= IDENT:id TWOPOINTS type:t
-          {: RESULT = new AstArgument(id,t) :};
+          {: RESULT = new AstArgument(id,t); :};
 
 args  ::= arg:a
-          {: RESULT = (new ArrayList<AstArgument>()).add(0,a); :}
+          {: ArrayList<AstArgument> l = new ArrayList<AstArgument>(); 
+             l.add(0,a);
+             RESULT = l; :}
           |
           arg:a COMMA args:as
           {: as.add(0,a); 
-             RESULT = as:};
+             RESULT = as; :};
 
 expr  ::= NUM:i
           {: RESULT = new AstNum(i); :}
@@ -111,7 +118,9 @@ expr  ::= NUM:i
           {: RESULT = new AstApplication(e,es); :};
 
 exprs ::= expr:e
-          {: RESULT =(new ArrayList<AstExpression>()).add(0,e); :}
+          {: ArrayList<AstExpression> l = new ArrayList<AstExpression>(); 
+             l.add(0,e);
+             RESULT = l; :}
           |
           expr:e exprs:es
           {: es.add(0,e);
