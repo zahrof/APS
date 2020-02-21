@@ -26,7 +26,7 @@ public class Test {
 				e.printStackTrace();
 			}
 		else
-			System.out.println("Null");
+			System.out.println("Error in parsing ...");
 	}
 
 }

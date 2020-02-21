@@ -1,5 +1,7 @@
 [
     CONST x int (add 0 0);
     CONST y bool (mult 1 6);
-    ECHO (if (f 5) x y)
+    ECHO (if (f 5) x y)   
 ]
+
+
