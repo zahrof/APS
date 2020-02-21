@@ -1,5 +1,7 @@
 package ast;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstNum
  */
@@ -13,4 +15,8 @@ public class AstNum extends AstExpression {
     public Integer getInteger(){
         return integer;
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }

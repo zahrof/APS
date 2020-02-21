@@ -1,5 +1,7 @@
 package ast;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstArgument
  */
@@ -17,7 +19,10 @@ public class AstArgument extends Ast {
     }
 
     public AstType getType(){
-        return type;
-        
+        return type;   
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }

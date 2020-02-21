@@ -1,5 +1,7 @@
 package ast;
 
-public abstract class Ast {
-    
+import interfaces.IAstVisitable;
+
+public abstract class Ast implements IAstVisitable{
+	
 }

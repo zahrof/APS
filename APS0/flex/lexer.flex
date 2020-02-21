@@ -1,6 +1,4 @@
-package lexer;
-import java_cup.runtime.*;
-import parser.*;
+package parser;
 
 %%
 
@@ -9,19 +7,22 @@ import parser.*;
 %unicode
 %line
 %column
-%cup
+%function next_token
+%integer
+
+%byaccj
 
 %{
-	private Symbol symbol(int type) {
-        return new Symbol(type, yyline, yycolumn);
-    }
-    private Symbol symbol(int type, Object value) {
-        return new Symbol(type, yyline, yycolumn, value);
-    }
+	private Parser parser;
+	
+	public Lexer(java.io.Reader r, Parser parser) {
+		this(r);
+		this.parser = parser;
+	}
 %}
 
 %eofval{
-    return symbol(ParserSym.EOF);
+    return Parser.EOF;
 %eofval}
 
 /* regulars expressions */
@@ -33,66 +34,68 @@ eol  = \n | \r | \r\n
 %%
 
 /* booleans */
-"true" { return symbol(ParserSym.TRUE); }
-"false" { return  symbol(ParserSym.FALSE); }
+"true" { return Parser.TRUE; }
+"false" { return  Parser.FALSE; }
 
 /* operators */
-"add"  { return symbol(ParserSym.OPRIM,"add"); }
-"sub"  { return symbol(ParserSym.OPRIM, "sub"); }
-"mul"  { return symbol(ParserSym.OPRIM, "mul"); }
-"div"  { return symbol(ParserSym.OPRIM, "div"); }
-"and"  { return symbol(ParserSym.OPRIM, "and"); }
-"or"  { return symbol(ParserSym.OPRIM, "or"); }
-"eq"  { return symbol(ParserSym.OPRIM, "eq"); }
-"lt"  { return symbol(ParserSym.OPRIM, "lt"); }
-"not" { return symbol(ParserSym.OPRIM, "not"); }
+"add"  { return Parser.ADD; }
+"sub"  { return Parser.SUB; }
+"mul"  { return Parser.MUL; }
+"div"  { return Parser.DIV; }
+"and"  { return Parser.AND; }
+"or"  { return Parser.OR; }
+"eq"  { return Parser.EQ; }
+"lt"  { return Parser.LT; }
+"not" { return Parser.NOT; }
 
 /* types */
-"bool" { return symbol(ParserSym.BOOL); }
-"int" { return symbol(ParserSym.INT); }
+"bool" { return Parser.BOOL; }
+"int" { return Parser.INT; }
 
 /* parenthesis */
-"("  { return symbol(ParserSym.LPAR); }
-")"  { return symbol(ParserSym.RPAR); }
+"("  { return Parser.LPAR; }
+")"  { return Parser.RPAR; }
 
 /* brackets */
-"["  { return symbol(ParserSym.LBAR); }
-"]"  { return symbol(ParserSym.RBAR); }
+"["  { return Parser.LBAR; }
+"]"  { return Parser.RBAR; }
 
 /* semicolon */
-";"  { return symbol(ParserSym.SEMCOL); }
+";"  { return Parser.SEMCOL; }
 
 /* two-points */
-":"  { return symbol(ParserSym.TWOPOINTS); }
+":"  { return Parser.TWOPOINTS; }
 
 /* comma */
-","  { return symbol(ParserSym.COMMA); }
+","  { return Parser.COMMA; }
 
 /* STAR */
-"*"  { return symbol(ParserSym.STAR); }
+"*"  { return Parser.STAR; }
 
 /* arrow */
-"->"  { return symbol(ParserSym.ARROW); }
+"->"  { return Parser.ARROW; }
 
 /* newline */
-{eol}   { /* ignore */ } 
+{eol}+   { /* ignore */ } 
 
 /* if */
-"if" { return symbol(ParserSym.IF); }
+"if" { return Parser.IF; }
 
 /* entiers */
-{entier}  {return symbol(ParserSym.NUM, Integer.parseInt(yytext())); }
+{entier}  {parser.yylval = new ParserVal(Integer.parseInt(yytext()));
+	       return Parser.NUM; }
 
 /* identifier */
-{identifier} { return symbol(ParserSym.IDENT, yytext());}
+{identifier} { parser.yylval = new ParserVal(yytext());
+	           return Parser.IDENT;}
 
 /* for functions */
-"CONST"  { return symbol(ParserSym.CONST); }
-"FUN"  { return symbol(ParserSym.FUN); }
-"REC"  { return symbol(ParserSym.REC); }
+"CONST"  { return Parser.CONST; }
+"FUN"  { return Parser.FUN; }
+"REC"  { return Parser.REC; }
 
 /* to print */
-"ECHO"  { return symbol(ParserSym.ECHO); }
+"ECHO"  { return Parser.ECHO; }
 
 /* whitespace */
 [ \t]+ { }
@@ -100,4 +103,4 @@ eol  = \n | \r | \r\n
 \b     { System.err.println("Sorry, backspace doesn’t work"); }
 
 /* error fallback */
-[^]    { System.err.println("Error: unexpected character ’"+yytext()+"’"); return null; }
+[^]    { System.err.println("Error: unexpected character ’"+yytext()+"’"); return -1; }

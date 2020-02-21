@@ -1,5 +1,7 @@
 package ast;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstIf
  */
@@ -25,4 +27,8 @@ public class AstIf extends AstExpression{
     public AstExpression getAlternative(){
         return alternative;
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }

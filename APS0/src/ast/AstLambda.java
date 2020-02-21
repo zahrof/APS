@@ -2,6 +2,8 @@ package ast;
 
 import java.util.List;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstLambda
  */
@@ -21,4 +23,8 @@ public class AstLambda extends AstExpression{
     public AstExpression getBody(){
         return body;
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }

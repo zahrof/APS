@@ -2,6 +2,8 @@ package ast;
 
 import java.util.List;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstFuncType
  */
@@ -21,4 +23,8 @@ public class AstFuncType extends AstType{
     public AstType getTypeResult(){
         return typeResult;
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }

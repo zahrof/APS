@@ -1,5 +1,7 @@
 package ast;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstEcho
  */
@@ -15,4 +17,8 @@ public class AstEcho extends AstStatement{
     public AstExpression getExpr(){
         return expr;
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }

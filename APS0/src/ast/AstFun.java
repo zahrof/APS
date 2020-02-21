@@ -2,6 +2,8 @@ package ast;
 
 import java.util.List;
 
+import interfaces.IAstVisitor;
+
 /**
  * AstFun
  */
@@ -16,4 +18,8 @@ public class AstFun extends AstDeclaration{
     public List<AstArgument> getArguments(){
         return arguments;
     }
+    
+    public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
+		return visitor.visit(this, data);
+	}
 }
