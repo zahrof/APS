@@ -1,7 +1,8 @@
 [
-    CONST x int (add 0 0);
-    CONST y bool (mult 1 6);
-    ECHO (if (f 5) x y)   
+    FUN fst int [x:int,y:int] (if true x y);
+    CONST y int (mul 2 6);
+    CONST x int (mul 3 8); 
+    ECHO (if true (fst x y) (fst false x))   
 ]
 
 

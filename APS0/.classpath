@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/home/hernouf/MyLibrary/Java/Cup/java-cup-11b.jar"/>
 	<classpathentry kind="lib" path="/home/hernouf/MyLibrary/Java/Cup/java-cup-11b-runtime.jar"/>
+	<classpathentry kind="lib" path="/home/hernouf/MyLibrary/Java/Jpl/jpl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
