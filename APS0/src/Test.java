@@ -1,6 +1,7 @@
 import java.io.FileReader;
 import java.io.IOException;
 
+import typage.PrologTerm;
 import ast.AstProgramme;
 import parser.*;
 

@@ -1,6 +1,14 @@
 package interfaces;
 
 import ast.*;
+import ast.declarations.AstConst;
+import ast.declarations.AstFun;
+import ast.declarations.AstFunRec;
+import ast.expressions.*;
+import ast.statements.AstEcho;
+import ast.types.AstBoolType;
+import ast.types.AstFuncType;
+import ast.types.AstIntType;
 
 public interface IAstVisitor<Return,Data,Exc extends Throwable> {
 	Return visit(AstApplication ast, Data data) throws Exc;

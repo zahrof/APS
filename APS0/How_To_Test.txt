@@ -1,2 +1,2 @@
 1. make 
-2. java PrologTerm *.aps
+2. java typage.PrologTerm *.aps

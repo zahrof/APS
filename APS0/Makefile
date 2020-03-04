@@ -9,8 +9,8 @@ PARSER_DEST = src/parser
 
 all: prologTerm
 
-prologTerm: parser Op.java PrologTerm.java
-					$(JAVAC) PrologTerm.java
+prologTerm: parser Op.java typage.PrologTerm.java
+					$(JAVAC) typage.PrologTerm.java
 
 parser: $(PARS_FILE) lexer
 	$(PARSER) $(PARS_FILE) -package $(PARSER_DEST) 

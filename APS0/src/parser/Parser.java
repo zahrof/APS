@@ -20,7 +20,15 @@ package parser;
 //#line 2 "cup/parser.y"
 import java.io.*;
 import java.util.ArrayList;
-import ast.*; 
+import ast.*;
+import ast.declarations.AstConst;
+import ast.declarations.AstDeclaration;
+import ast.declarations.AstFun;
+import ast.declarations.AstFunRec;
+import ast.expressions.*;
+import ast.statements.AstEcho;
+import ast.statements.AstStatement;
+import ast.types.*;
 //#line 21 "Parser.java"
 
 

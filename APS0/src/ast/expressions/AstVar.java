@@ -1,26 +1,24 @@
-package ast;
+package ast.expressions;
 
-import ast.types.AstType;
 import interfaces.IAstVisitor;
 
 /**
- * AstArgument
+ * AstVar
  */
-public class AstArgument extends Ast {
+public class AstVar extends AstExpression {
+    
     private String name;
-    private AstType type;
 
-    public AstArgument(String n, AstType t){
+    public AstVar(String n){
         name=n;
-        type=t;
     }
 
     public String getName(){
         return name;
     }
-
-    public AstType getType(){
-        return type;   
+    
+    public String toProlog() {
+    	return "var("+name+")";
     }
     
     public <Result,Data,Exc extends Throwable> Result accept(IAstVisitor<Result,Data,Exc> visitor, Data data) throws Exc{
