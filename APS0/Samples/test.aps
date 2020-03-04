@@ -1,7 +1,7 @@
 [
     FUN fst int [x:int,y:int] (if true x y);
     CONST y int (mul 2 6);
-    CONST x int (mul 3 8); 
+    CONST x int (mul 7 8);
     ECHO (if true (fst x y) (fst false x))   
 ]
 

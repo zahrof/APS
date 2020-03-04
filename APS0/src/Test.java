@@ -10,7 +10,7 @@ public class Test {
 		Parser parser;
 		AstProgramme prog=null;
 		PrologTerm p = new PrologTerm();
-		parser = new Parser(new FileReader("Samples/test.aps"));
+		parser = new Parser(new FileReader("Samples/Samples_APS/prog012.aps"));
 		try {
 			parser.parse();
 			prog = parser.prog;
